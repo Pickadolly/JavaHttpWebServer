@@ -41,6 +41,12 @@ public class ConnectionHandler extends Thread { //by extending to thread this cl
 
             //now we pass the httprequest object to the response class
             HttpResponse res = new HttpResponse(req);
+
+            //write the final output to pw
+            pw.write(res.response.toCharArray());
+            s.close();
+            pw.close();
+            br.close();
         } catch (Exception e){
             e.printStackTrace();
         }
