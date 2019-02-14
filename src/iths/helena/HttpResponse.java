@@ -35,7 +35,7 @@ public class HttpResponse {
             fis.close();
         } catch (FileNotFoundException e){
             //if we dont get a file then error 404
-            response = response.replaceAll("200", "404");
+            response = response.replace("200", "404");
         }
         catch (Exception e){
             //if other error then 500 internal server error
