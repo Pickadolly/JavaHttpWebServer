@@ -34,19 +34,20 @@ public class ConnectionHandler extends Thread { //by extending to thread this cl
             String reqS = "";
 
             //from br we have to read our request
-            while (br.ready())
+            //read until request is not get or br is ready
+            while (br.ready() || reqS.length() == 0)
                 reqS += (char) br.read();
             System.out.println(reqS); //for display
             HttpRequest req = new HttpRequest(reqS);
 
-            //now we pass the httprequest object to the response class
+            //now we pass the http request object to the response class
             HttpResponse res = new HttpResponse(req);
 
             //write the final output to pw
             pw.write(res.response.toCharArray());
-            s.close();
             pw.close();
             br.close();
+            s.close();
         } catch (Exception e){
             e.printStackTrace();
         }

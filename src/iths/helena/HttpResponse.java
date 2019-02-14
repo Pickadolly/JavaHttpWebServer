@@ -25,16 +25,17 @@ public class HttpResponse {
                                         //200 means everything is ok
             response += "Server: Our Java Server/1.0 \r\n"; //identity of the server
             response += "Content-Type: text/html\r\n"; //response is html format
+            response += "Connection: close \r\n"; //this line tells the browser to close the connection
             response += "Content-Length: " + f.length() + " \r\n"; //length of response file
             response += "\r\n"; //after blank line we have to append file data
             int s;
             while ((s = fis.read()) != -1){ //-1 means end of file
                 response += (char) s;
             }
-
+            fis.close();
         } catch (FileNotFoundException e){
             //if we dont get a file then error 404
-            response = response.replace("200", "404");
+            response = response.replaceAll("200", "404");
         }
         catch (Exception e){
             //if other error then 500 internal server error

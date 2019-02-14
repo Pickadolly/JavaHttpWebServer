@@ -23,6 +23,7 @@ public class Main {
     }
 
     public void runServer() throws IOException {
+        System.out.println("Server is started");
         serverSocket = new ServerSocket(6543); //port number at wich server is running
 
         //for accepting requests
