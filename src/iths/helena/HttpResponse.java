@@ -8,7 +8,7 @@ public class HttpResponse {
 
     HttpRequest req;
     //this is the final response which is generated
-    String response;
+    String response = "";
     //root path of the server, this is nothing but the folder which contains all the files
     String root = "C:/root";
 
