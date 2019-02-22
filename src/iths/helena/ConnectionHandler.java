@@ -1,27 +1,22 @@
 package iths.helena;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 
 //this class handles all the connection which contains the requests
 public class ConnectionHandler extends Thread { //by extending to thread this class becomes a thread
 
-    Socket s;
-
-    //for sending the output to client
+    private Socket s;
     PrintWriter pw;
-
-    //for getting the input from client
     BufferedReader br;
+    BufferedOutputStream dataOut = null;
 
     //constructor
     public ConnectionHandler(Socket s) throws IOException {
         this.s = s;
         br = new BufferedReader(new InputStreamReader(s.getInputStream()));
         pw = new PrintWriter(s.getOutputStream());
+        dataOut = new BufferedOutputStream(s.getOutputStream());
     }
 
 
@@ -45,7 +40,12 @@ public class ConnectionHandler extends Thread { //by extending to thread this cl
 
             //write the final output to pw
             pw.write(res.response.toCharArray());
-            pw.close();
+            pw.flush();
+            if(res.data == null){
+            } else {
+                dataOut.write(res.data, 0, res.fileLength);
+                dataOut.flush();
+            }
             br.close();
             s.close();
         } catch (Exception e){
