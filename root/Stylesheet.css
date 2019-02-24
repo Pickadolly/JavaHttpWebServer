@@ -1,0 +1,36 @@
+body {
+    font-family: Arial, Verdana, sans-serif;
+    background-color: rgb(200,200,200);
+}
+h1 {
+    color: DarkCyan;
+    font-size: 200%
+}
+h2 {
+    color: #ee3e80;
+    font-size: 1.3em;
+    font-style: italic;
+    border-style: dotted;
+    border-color: mediumvioletred;
+}
+p {
+    color: #665544;
+    background-color: white;
+}
+input {
+    padding: 6px 12px 6px 12px;
+    border: 1px solid #665544;
+    color: #ffffff;
+}
+input.submit:hover {
+    background-color: #665544;
+}
+input.submit:active {
+    background-color: chocolate;
+}
+input.text {
+    color: #cccccc;
+}
+input.text:focus {
+    color: #665544;
+}
