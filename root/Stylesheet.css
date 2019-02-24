@@ -4,23 +4,12 @@ body {
 }
 h1 {
     color: DarkCyan;
-    font-size: 200%
-}
-h2 {
-    color: #ee3e80;
-    font-size: 1.3em;
-    font-style: italic;
-    border-style: dotted;
-    border-color: mediumvioletred;
-}
-p {
-    color: #665544;
-    background-color: white;
+    font-size: 150%
 }
 input {
     padding: 6px 12px 6px 12px;
     border: 1px solid #665544;
-    color: #ffffff;
+    color: black;
 }
 input.submit:hover {
     background-color: #665544;
@@ -29,8 +18,8 @@ input.submit:active {
     background-color: chocolate;
 }
 input.text {
-    color: #cccccc;
+    color: black;
 }
 input.text:focus {
-    color: #665544;
+    color: black;
 }
