@@ -1,36 +1,68 @@
 package iths.helena;
 
-import java.net.FileNameMap;
-import java.net.URLConnection;
-
 public class HttpRequest {
+    String method, mimeType, filename, ext, jsonData;
+    String[] postArgs = null;
+    PostArguments pa;
+    Person p;
+    JsonConverter jc;
 
-    //first line contain 3 parts
-    //1 request type, 2 request file name and 3 request http version
-    //and for us file name is important
-    String method, mimeType, filename, ext;
-
-    //here we have to create a constructor that accepts a string
-    public HttpRequest(String request){
-
-        String lines[] = request.split("\r\n");
-        method = lines[0].split(" ")[0];
-        filename = lines[0].split(" ")[1];
-        filename = filename.substring(1);
-        ext = filename.split("\\.")[1];
-        if (!ext.equals("css") && !ext.equals("js")) {
-            FileNameMap fileNameMap = URLConnection.getFileNameMap();
-            mimeType = fileNameMap.getContentTypeFor(filename);
-        } else {
-            if(ext.equals("css")) {
-                mimeType = "text/css";
-            } else if(ext.equals("js")) {
-                mimeType = "text/javascript";
-            } else {
-                mimeType = "text/plain";
+    public HttpRequest(String request) {
+        if (request != null && !request.isEmpty()) {
+            String lines[] = request.split("\r\n");
+            method = lines[0].split(" ")[0];
+            if(method.equals("POST")) {
+                pa = new PostArguments();
+                p = pa.breakUpArguments(lines[lines.length-1].split("&"));
+                jc = new JsonConverter(p);
+                jsonData = jc.personToJson();
             }
+            filename = lines[0].split(" ")[1];
+            if (filename.equals("/"))
+                filename = "/index.html";
+            ext = filename.substring(filename.lastIndexOf('.') + 1);
+        } else {
+            System.out.println("GAH!");
         }
+        try {
+            if(ext != null) {
+                switch (ext) {
+                    case "htm":
+                        mimeType = "text/html";
+                        break;
+                    case "html":
+                        mimeType = "text/html";
+                        break;
+                    case "css":
+                        mimeType = "text/css";
+                        break;
+                    case "js":
+                        mimeType = "text/javascript";
+                        break;
+                    case "png":
+                        mimeType = "image/png";
+                        break;
+                    case "jpg":
+                        mimeType = "image/jpeg";
+                        break;
+                    case "jpeg":
+                        mimeType = "image/jpeg";
+                        break;
+                    case "ico":
+                        mimeType = "image/vnd.microsoft.icon";
+                        break;
+                    case "json":
+                        mimeType = "application/json";
+                        break;
+                    case "pdf":
+                        mimeType = "application/pdf";
+                        break;
+                    default:
+                        mimeType = "text/plain";
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
 
+        }
     }
-
 }
